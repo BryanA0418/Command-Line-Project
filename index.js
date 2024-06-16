@@ -1,8 +1,10 @@
-const {all, create, show, update, destroy} = require("./src/inventoryFunctions")
+const {all, create, show, update, destroy, add, sum, empty} = require("./src/inventoryFunctions")
 
 const { readJSONFile, writeJSONFile} = require("./src/helpers")
 
 function run (){
+    let updatedCart = []
+    let bicycleCart = readJSONFile("./data", "bicyclesCart.json")
     let bicycleInventory = readJSONFile("./data", "bicycles.json");
     let writeToFile = false;
     let updatedBicycleInventory = [];
@@ -27,6 +29,18 @@ function run (){
         case "destroy":
             updatedBicycleInventory = destroy(bicycleInventory,bicycle);
             writeToFile = true;
+            break;
+        case "add":
+            updatedCart = add(bicycleInventory,bicycleCart,bicycle);
+            writeJSONFile("./data", "bicyclesCart.json", updatedCart)
+            break;
+        case "sum" :
+            let sumOfCart = sum(bicycleCart);
+            console.log(sumOfCart);
+            break;
+        case "empty" :
+            updatedCart = empty(bicycleCart)
+            writeJSONFile("./data", "bicyclesCart.json", updatedCart)
             break;
     }
     if (writeToFile) {

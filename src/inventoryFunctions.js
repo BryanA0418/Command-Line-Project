@@ -36,4 +36,45 @@ function destroy(bicycleInventory, bicycle){
     return bicycleInventory;
 }
 
-module.exports = {all, create, show, update, destroy}
+function add(bicycleInventory,bicycleCart,bicycle){
+    let index;
+    const bikeToPurchase = bicycleInventory.find(ele => ele.name === bicycle)
+    try {
+        
+     
+    if(bikeToPurchase){
+    if(bicycleCart.find((ele,ind) => ele.name === bikeToPurchase.name ? index = ind : null)){
+        bicycleCart[index].quantity++
+        return bicycleCart
+    }else{
+        bikeToPurchase["quantity"] = 1
+        bicycleCart.push(bikeToPurchase)
+        return bicycleCart;
+        }
+    }else throw("Bike Doesn't exist")
+    
+    } catch (error) {
+        console.error(error);
+        return bicycleCart;
+    }
+}
+
+function sum(bicycleCart){
+    let sum = 0;
+    for(let i = 0;i<bicycleCart.length;i++){
+        if(bicycleCart[i].quantity > 1){
+            console.log(bicycleCart[i])
+            sum += +bicycleCart[i].priceInCents * bicycleCart[i].quantity;
+        } else {
+            // sum += +bicycleCart[i].priceInCents
+        }
+    }
+    return sum/100;
+}
+
+function empty(bicycleCart){
+bicycleCart = []
+return bicycleCart
+}
+
+module.exports = {all, create, show, update, destroy, add, sum, empty}
