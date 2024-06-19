@@ -43,8 +43,7 @@ function add(bicycleInventory,bicycleCart,bicycle){
         
      
     if(bikeToPurchase){
-    if(bicycleCart.find((ele,ind) => ele.name === bikeToPurchase.name ? index = ind : null)){
-        bicycleCart[index].quantity++
+    if(bicycleCart.find((ele,ind) => ele.name === bikeToPurchase.name ? ele.quantity++ : null)){
         return bicycleCart
     }else{
         bikeToPurchase["quantity"] = 1
@@ -63,13 +62,12 @@ function sum(bicycleCart){
     let sum = 0;
     for(let i = 0;i<bicycleCart.length;i++){
         if(bicycleCart[i].quantity > 1){
-            console.log(bicycleCart[i])
             sum += +bicycleCart[i].priceInCents * bicycleCart[i].quantity;
         } else {
-            // sum += +bicycleCart[i].priceInCents
+            sum += +bicycleCart[i].priceInCents
         }
     }
-    return sum/100;
+    return `${sum/100}.00$`;
 }
 
 function empty(bicycleCart){
